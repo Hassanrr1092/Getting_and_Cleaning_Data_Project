@@ -91,13 +91,12 @@ Merged_TrainTest
 
 # Task 4. Appropriately labels the data set with descriptive variable names. 
 colnames(Merged_TrainTest)[(mean_stdMeasurementIndice + 2)] <- mean_stdMeasurementValue
-
 Merged_TrainTest <- Merged_TrainTest[, c("subject", "activity", mean_stdMeasurementValue)]
 colnames(Merged_TrainTest)
 
+            # removed "()" from the column names
 colnames(Merged_TrainTest)[-c(1, 2)] <- gsub("\\(\\)", "", colnames(Merged_TrainTest)[-c(1, 2)])
 Merged_TrainTest
-
 
 # Tasl 5. From the data set in step 4, creates a second, independent tidy data set 
 # with the average of each variable for each activity and each subject.
@@ -107,6 +106,8 @@ AvgVariable <- Merged_TrainTest %>%
                summarize(across(1:66, mean, na.rm=TRUE), .groups = "drop_last")
 AvgVariable
 
-
+            # imported the tidy data ana named it "tidy_data.txt or tidy_data.csv"
+write.table(AveSubActivity, "tidy_data.txt", row.names = FALSE)
+write.csv(AveSubActivity, "tidy_data.csv", row.names = FALSE)
 
 
